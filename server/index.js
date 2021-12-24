@@ -1,7 +1,7 @@
 import app from './app';
 
 // Instance of PORT
-app.set('port', process.env.PORT || 3002)
+app.set('port', process.env.PORT)
 
 // Listening the PORT
 app.listen(app.get('port'))
