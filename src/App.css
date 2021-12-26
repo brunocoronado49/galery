@@ -31,3 +31,8 @@
     transform: rotate(360deg);
   }
 }
+
+.img-fluid:hover {
+  border: 3px solid #eb4d4b;
+  cursor: pointer;
+}

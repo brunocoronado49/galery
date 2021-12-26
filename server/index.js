@@ -1,11 +1,10 @@
 import app from './app';
-import config from './config/config';
 import './database/database'
 
-// Instance of PORT
-app.set('port', config.Port)
+// Instance of port
+app.set("port", process.env.PORT);
 
 // Listening the PORT
-app.listen(app.get('port'))
-console.log(`Server on port: ${app.get('port')}`);
+app.listen(app.get("port"))
+console.log('Server on port:', app.get("port"));
 

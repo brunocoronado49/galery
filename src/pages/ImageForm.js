@@ -7,6 +7,8 @@ const ImageForm = () => {
 
   const [file, setFile] = useState();
   const [title, setTitle] = useState('');
+  const [upload, setUpload] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const handleChangeTitle = (event) => {
       console.log(event.target.value)
@@ -21,6 +23,8 @@ const ImageForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true)
+
     // This form data will be use for save file and title
     const formData = new FormData()
 
@@ -28,7 +32,19 @@ const ImageForm = () => {
     formData.append('file', file)
     formData.append('title', title)
 
-    const res = await axios.post('http://localhost:4000/API/upload-image', formData)
+    const res = await axios.post('/API/upload-image', formData, {
+      // This give bakend more info
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      // For show progress indicator
+      onUploadProgress(progressEvent) {
+        const {total, loaded} = progressEvent
+        const porcent = parseInt((loaded * 100) / total)
+        console.log(porcent)
+        setUpload(porcent)
+      }
+    })
     console.log(res);
   };
 
@@ -66,6 +82,16 @@ const ImageForm = () => {
             </form>
           </div>
         </div>
+        <br />
+        {loading && (
+          <div className="progress">
+            <div 
+              className="progress-bar 
+              progress-bar-striped progress-bar-animated" 
+              role="progressbar" aria-valuenow="75" aria-valuemin="0" 
+              aria-valuemax="100" style={{width: `${upload}%`}}></div>
+          </div>
+        )}
       </div>
     </div>
   );

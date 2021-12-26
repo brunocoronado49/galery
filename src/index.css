@@ -8,3 +8,7 @@ body, body > #root > div {
   color: #34495e;
   text-align: justify;
 }
+
+.titleImage {
+  color: #fff;
+}
